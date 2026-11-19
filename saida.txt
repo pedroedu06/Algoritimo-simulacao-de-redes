@@ -1,0 +1,43 @@
+===============================================================
+  ROTEAMENTO COM DIJKSTRA (ESTADO DE ENLACE - ORIGEM: R0)
+===============================================================
+
+VIZINHOS DE CADA ROTEADOR (rotas de entrada/saida):
+  R0: R1(4), R2(2)   -> 2 enlaces
+  R1: R0(4), R2(1), R3(5)   -> 3 enlaces
+  R2: R0(2), R1(1), R3(8), R4(10)   -> 4 enlaces
+  R3: R1(5), R2(8), R4(2), R5(6)   -> 4 enlaces
+  R4: R2(10), R3(2), R5(3)   -> 3 enlaces
+  R5: R3(6), R4(3)   -> 2 enlaces
+
+MATRIZ DE CUSTOS INICIAIS ('-' = sem enlace direto):
+           R0     R1     R2     R3     R4     R5
+R0          0      4      2      -      -      -
+R1          4      0      1      5      -      -
+R2          2      1      0      8     10      -
+R3          -      5      8      0      2      6
+R4          -      -     10      2      0      3
+R5          -      -      -      6      3      0
+
+RESULTADO DE CADA PASSAGEM (custo/roteador anterior):
+  Passagem | Fechou | R0     | R1     | R2     | R3     | R4     | R5     
+  1        | R0     | 0/R0   | 4/R0   | 2/R0   | INF/-  | INF/-  | INF/-  
+  2        | R2     | 0/R0   | 3/R2   | 2/R0   | 10/R2  | 12/R2  | INF/-  
+  3        | R1     | 0/R0   | 3/R2   | 2/R0   | 8/R1   | 12/R2  | INF/-  
+  4        | R3     | 0/R0   | 3/R2   | 2/R0   | 8/R1   | 10/R3  | 14/R3  
+  5        | R4     | 0/R0   | 3/R2   | 2/R0   | 8/R1   | 10/R3  | 13/R4  
+  6        | R5     | 0/R0   | 3/R2   | 2/R0   | 8/R1   | 10/R3  | 13/R4  
+
+TABELA DE ENCAMINHAMENTO FINAL:
+---------------------------------------------------------------
+Destino    | Custo Min.   | Predecessor  | Rota Completa         
+---------------------------------------------------------------
+R0         | 0            | R0           | R0
+R1         | 3            | R2           | R0 -> R2 -> R1
+R2         | 2            | R0           | R0 -> R2
+R3         | 8            | R1           | R0 -> R2 -> R1 -> R3
+R4         | 10           | R3           | R0 -> R2 -> R1 -> R3 -> R4
+R5         | 13           | R4           | R0 -> R2 -> R1 -> R3 -> R4 -> R5
+---------------------------------------------------------------
+Status: Arvore de caminhos minimos calculada (todos os custos >= 0).
+
